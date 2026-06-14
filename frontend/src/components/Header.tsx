@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, Phone, Menu, ArrowRight, Package } from "lucide-react";
+import { Search, Menu, ArrowRight, Package } from "lucide-react";
 import { AuthButton } from "./AuthButton";
 
 export function Header() {
@@ -19,34 +19,31 @@ export function Header() {
         </div>
 
         {/* Десктопная навигация */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-5 lg:gap-6">
           <Link href="/tracking" className="flex items-center gap-2 text-sm font-medium text-brand-charcoal hover:text-brand-grass transition-colors">
             <Search size={18} />
             <span>Track Package</span>
           </Link>
-          
-          <a href="tel:+41440000000" className="flex items-center gap-2 text-sm font-bold text-brand-charcoal hover:text-brand-grass transition-colors">
-            <Phone size={18} className="text-brand-grass" />
-            <span>+41 44 000 00 00</span>
-          </a>
 
-          <div className="flex items-center gap-3 border-l border-brand-charcoal/10 pl-6">
+          <Link 
+            href="/orders" 
+            className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-brand-charcoal text-brand-charcoal text-sm font-bold hover:bg-brand-charcoal/5 transition-all active:scale-95"
+          >
+            <Package size={16} />
+            <span>My Orders</span>
+          </Link>
+
+          <Link 
+            href="/calculation" 
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-grass text-brand-charcoal text-sm font-bold hover:bg-[#72c938] transition-all active:scale-95 group shadow-lg shadow-brand-grass/20"
+          >
+            <span className="hidden sm:inline">Book Delivery</span>
+            <span className="sm:hidden">Book</span>
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+
+          <div className="flex items-center border-l border-brand-charcoal/10 pl-5 lg:pl-6 ml-1 lg:ml-2">
             <AuthButton />
-            <Link 
-              href="/orders" 
-              className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-brand-charcoal text-brand-charcoal text-sm font-bold hover:bg-brand-charcoal/5 transition-all active:scale-95"
-            >
-              <Package size={16} />
-              <span>My Orders</span>
-            </Link>
-            <Link 
-              href="/calculation" 
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-grass text-brand-charcoal text-sm font-bold hover:bg-[#72c938] transition-all active:scale-95 group shadow-lg shadow-brand-grass/20"
-            >
-              <span className="hidden sm:inline">Book Delivery</span>
-              <span className="sm:hidden">Book</span>
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </Link>
           </div>
         </div>
 
