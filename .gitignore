@@ -1,0 +1,10 @@
+# Env files
+.env
+.env.local
+.env.*
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store

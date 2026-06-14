@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { OrdersController } from './orders.controller';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { CreateOrderCommand } from 'src/orders/application/commands/create-order/create-order.command';
 
 describe('OrdersController', () => {
   let controller: OrdersController;
@@ -18,7 +19,7 @@ describe('OrdersController', () => {
     jest.clearAllMocks();
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [OrdersController],
+      controllers: [ OrdersController ],
       providers: [
         {
           provide: CommandBus,
@@ -55,7 +56,7 @@ describe('OrdersController', () => {
 
     expect(mockCommandBus.execute).toHaveBeenCalledTimes(1);
 
-    const commandSent = mockCommandBus.execute.mock.calls[0][0];
+    const commandSent = mockCommandBus.execute.mock.calls[ 0 ][ 0 ];
     expect(commandSent).toBeInstanceOf(CreateOrderCommand);
     expect(commandSent.routeFrom).toBe('Zurich');
     expect(commandSent.declaredValueCurrency).toBe('CHF');
