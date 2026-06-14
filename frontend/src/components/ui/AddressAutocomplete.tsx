@@ -5,7 +5,7 @@ import { MapPin, Loader2 } from "lucide-react";
 
 interface AddressAutocompleteProps {
   placeholder: string;
-  label: string;
+  label?: string;
   isGrass?: boolean;
   value?: string;
   onChange?: (value: string) => void;
