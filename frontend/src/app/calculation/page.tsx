@@ -327,7 +327,7 @@ export default function CalculationPage() {
                   const resetState = {
                     addressFrom: "", addressTo: "", senderName: "", senderPhone: "", senderEmail: "",
                     recipientName: "", recipientPhone: "", fullRecipientInfo: false,
-                    packageType: "cargo" as const, weightCategory: "2kg",
+                    packageType: "cargo" as const, weightCategory: "2kg" as const,
                     pickupDate: "", pickupTime: "", deliveryDate: "", deliveryTime: "",
                     declaredValue: "", paymentMethod: "card" as const, saveForm: false, agreement: false
                   };
