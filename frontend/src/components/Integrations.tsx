@@ -26,7 +26,7 @@ const integrations = [
 
 export function Integrations() {
   return (
-    <section className="py-28 bg-brand-silver/8">
+    <section className="pt-[12vw] pb-28 bg-brand-silver/8">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-base font-bold text-brand-grass uppercase tracking-widest mb-3">B2B Solutions</div>

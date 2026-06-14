@@ -24,7 +24,6 @@ export function Features() {
           xmlns="http://www.w3.org/2000/svg"
           style={{ height: '10vw' }}
         >
-          <rect x="0" y="400" width="1905" height="480" fill="white"/>
           <path d="M1904 437.812H1904.39V823.986C1895.58 615.705 1785.65 449.444 1648.73 438.312H0V400H1904V437.812Z" fill="#424B54"/>
           <path d="M1904.39 879.745L1904.31 879.621C1904.34 879.083 1904.36 878.545 1904.39 878.006V879.745Z" fill="#424B54"/>
         </svg>
