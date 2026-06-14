@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id                    String   @id @default(uuid())
+  senderId              String?
+  senderEmail           String?
+  senderName            String
+  senderPhone           String
+  recipientName         String
+  recipientPhone        String
+  routeFrom             String
+  routeTo               String
+  packageType           String   // 'documents' | 'cargo'
+  weightCategory        String
+  declaredValueAmount   Float
+  declaredValueCurrency String   @default("CHF")
+  status                String   @default("PENDING")
+  paymentStatus         String   @default("PENDING_PAYMENT")
+  paymentMethod         String?  // PAYPAL, TWINT
+  amountPaid            Float?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
