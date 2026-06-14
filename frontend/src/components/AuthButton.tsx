@@ -45,7 +45,7 @@ export function AuthButton() {
   return (
     <Link 
       href="/login"
-      className="text-sm font-bold text-white/90 hover:text-brand-grass transition-colors flex items-center gap-2"
+      className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-charcoal text-white text-sm font-bold hover:bg-[#1a1a1a] transition-all active:scale-95 shadow-md"
     >
       Log in
     </Link>
