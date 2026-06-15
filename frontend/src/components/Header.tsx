@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { Search, Menu, ArrowRight, Package } from "lucide-react";
 import { AuthButton } from "./AuthButton";
+import { useSession } from "next-auth/react";
 
 export function Header() {
+  const { data: session } = useSession();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-brand-silver/30 shadow-sm print:hidden">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -25,13 +30,15 @@ export function Header() {
             <span>Track Package</span>
           </Link>
 
-          <Link 
-            href="/orders" 
-            className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-brand-charcoal text-brand-charcoal text-sm font-bold hover:bg-brand-charcoal/5 transition-all active:scale-95"
-          >
-            <Package size={16} />
-            <span>My Orders</span>
-          </Link>
+          {session && (
+            <Link 
+              href="/orders" 
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-brand-charcoal text-brand-charcoal text-sm font-bold hover:bg-brand-charcoal/5 transition-all active:scale-95"
+            >
+              <Package size={16} />
+              <span>My Orders</span>
+            </Link>
+          )}
 
           <Link 
             href="/calculation" 

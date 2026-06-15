@@ -52,9 +52,9 @@ export function Features() {
               ))}
             </div>
 
-            <button className="mt-4 px-10 py-5 bg-brand-grass hover:bg-[#72cc35] text-brand-charcoal font-black text-lg rounded-2xl transition-all active:scale-95 flex items-center gap-2 shadow-xl shadow-brand-grass/15 hover:shadow-brand-grass/30">
+            <button className="group mt-4 px-10 py-5 bg-brand-grass hover:bg-[#72cc35] text-brand-charcoal font-black text-lg rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-grass/40 active:translate-y-0 active:scale-[0.92] flex items-center gap-2">
               Calculate Cost
-              <ArrowRight size={20} strokeWidth={3} />
+              <ArrowRight size={20} strokeWidth={3} className="transition-transform duration-300 group-hover:translate-x-2" />
             </button>
           </div>
 

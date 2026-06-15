@@ -16,7 +16,7 @@ export function FloatingBoxes() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const boxesRef = useRef<Box[]>([]);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const offscreenRef = useRef<HTMLCanvasElement[]>([]);
   const frameRef = useRef<number>(0);
 
   useEffect(() => {
@@ -30,11 +30,33 @@ export function FloatingBoxes() {
     const sources = ["/images/box1.png", "/images/box2.png", "/images/box3.png"];
     let loaded = 0;
 
+    let cw = 0;
+    let ch = 0;
+    let rect: DOMRect | null = null;
+
     sources.forEach((src, i) => {
       const img = new Image();
       img.src = src;
       img.onload = () => {
-        imagesRef.current[i] = img;
+        // Pre-render the image with its shadow to an offscreen canvas.
+        // This is the ultimate optimization for Canvas shadows.
+        const osc = document.createElement("canvas");
+        const octx = osc.getContext("2d");
+        
+        // We make the canvas large enough to contain the shadow (300x300)
+        osc.width = 300;
+        osc.height = 300;
+        
+        if (octx) {
+          octx.shadowColor = "rgba(66,75,84,0.2)";
+          octx.shadowBlur = 30;
+          octx.shadowOffsetY = 12;
+          
+          // Draw the image in the center at 150x150
+          octx.drawImage(img, 75, 75, 150, 150);
+        }
+        
+        offscreenRef.current[i] = osc;
         loaded++;
         if (loaded === sources.length) startAnimation();
       };
@@ -52,14 +74,21 @@ export function FloatingBoxes() {
 
     function resize() {
       if (!container || !canvas) return;
+      cw = container.clientWidth;
+      ch = container.clientHeight;
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = container.clientWidth * dpr;
-      canvas.height = container.clientHeight * dpr;
-      canvas.style.width = container.clientWidth + "px";
-      canvas.style.height = container.clientHeight + "px";
+      canvas.width = cw * dpr;
+      canvas.height = ch * dpr;
+      canvas.style.width = cw + "px";
+      canvas.style.height = ch + "px";
       ctx!.scale(dpr, dpr);
-      initBoxes(container.clientWidth, container.clientHeight);
+      initBoxes(cw, ch);
+      rect = canvas.getBoundingClientRect();
     }
+
+    const updateRect = () => {
+      if (canvas) rect = canvas.getBoundingClientRect();
+    };
 
     function startAnimation() {
       resize();
@@ -68,12 +97,10 @@ export function FloatingBoxes() {
 
     function animate() {
       if (!ctx || !canvas || !container) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      const cx = w / 2;
-      const cy = h / 2;
+      const cx = cw / 2;
+      const cy = ch / 2;
 
-      ctx.clearRect(0, 0, w, h);
+      ctx.clearRect(0, 0, cw, ch);
 
       const mouse = mouseRef.current;
 
@@ -101,20 +128,22 @@ export function FloatingBoxes() {
         box.x += (finalX - box.x) * 0.06;
         box.y += (finalY - box.y) * 0.06;
 
-        const img = imagesRef.current[i];
-        if (!img) return;
+        const osc = offscreenRef.current[i];
+        if (!osc) return;
 
         const s = box.size;
+        // The original image was drawn at 150x150 inside a 300x300 canvas
+        const scale = s / 150;
+        const drawSize = 300 * scale;
+
         const tilt = Math.sin(box.angle * 0.7) * 0.15;
 
         ctx.save();
         ctx.translate(box.x, box.y);
         ctx.rotate(tilt);
         ctx.globalAlpha = 0.88;
-        ctx.shadowColor = "rgba(66,75,84,0.2)";
-        ctx.shadowBlur = 30;
-        ctx.shadowOffsetY = 12;
-        ctx.drawImage(img, -s / 2, -s / 2, s, s);
+        // Extremely fast hardware-accelerated draw
+        ctx.drawImage(osc, -drawSize / 2, -drawSize / 2, drawSize, drawSize);
         ctx.restore();
       });
 
@@ -122,7 +151,7 @@ export function FloatingBoxes() {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
+      if (!rect) rect = canvas.getBoundingClientRect();
       mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     };
 
@@ -133,12 +162,14 @@ export function FloatingBoxes() {
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", updateRect, { passive: true });
 
     return () => {
       cancelAnimationFrame(frameRef.current);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", updateRect);
     };
   }, []);
 

@@ -37,9 +37,14 @@ export default function IntegrationPage() {
             </div>
 
             <div className="pt-4">
-              <button className="px-8 py-4 bg-brand-grass hover:bg-[#72c938] text-brand-charcoal font-black rounded-xl transition-all shadow-lg uppercase tracking-widest flex items-center gap-2">
+              <a 
+                href="https://winterthurexpress-delivery-service-production.up.railway.app/api/docs" 
+                target="_blank" 
+                rel="noreferrer"
+                className="inline-flex px-8 py-4 bg-brand-grass hover:bg-[#72c938] text-brand-charcoal font-black rounded-xl transition-all shadow-lg uppercase tracking-widest items-center gap-2 active:scale-95"
+              >
                 Read Documentation <ArrowRight size={20} />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -48,17 +53,23 @@ export default function IntegrationPage() {
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="ml-4 text-xs font-mono text-white/40">POST /api/v1/orders</span>
+              <span className="ml-4 text-xs font-mono text-white/40">POST /orders</span>
             </div>
             <div className="p-6 overflow-x-auto text-sm font-mono text-white/80">
-              <pre className="text-green-400">curl <span className="text-white">-X POST https://api.winterthurexpress.ch/v1/orders \</span></pre>
+              <pre className="text-green-400">curl <span className="text-white">-X POST https://winterthurexpress-delivery-service-production.up.railway.app/orders \</span></pre>
               <pre className="text-white">  -H <span className="text-yellow-300">"Authorization: Bearer YOUR_API_KEY"</span> \</pre>
               <pre className="text-white">  -H <span className="text-yellow-300">"Content-Type: application/json"</span> \</pre>
               <pre className="text-white">  -d <span className="text-yellow-300">'{'{'}</span></pre>
-              <pre className="text-white">    <span className="text-blue-300">"pickup"</span>: <span className="text-yellow-300">"Technikumstrasse 9, Winterthur"</span>,</pre>
-              <pre className="text-white">    <span className="text-blue-300">"dropoff"</span>: <span className="text-yellow-300">"Bahnhofstrasse 1, Zurich"</span>,</pre>
-              <pre className="text-white">    <span className="text-blue-300">"weight"</span>: <span className="text-purple-400">2.5</span>,</pre>
-              <pre className="text-white">    <span className="text-blue-300">"type"</span>: <span className="text-yellow-300">"express"</span></pre>
+              <pre className="text-white">    <span className="text-blue-300">"senderEmail"</span>: <span className="text-yellow-300">"client@example.com"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"senderName"</span>: <span className="text-yellow-300">"Company Ltd"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"senderPhone"</span>: <span className="text-yellow-300">"+41440000000"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"recipientName"</span>: <span className="text-yellow-300">"John Doe"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"recipientPhone"</span>: <span className="text-yellow-300">"+41440000001"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"routeFrom"</span>: <span className="text-yellow-300">"Technikumstrasse 9, Winterthur"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"routeTo"</span>: <span className="text-yellow-300">"Bahnhofstrasse 1, Zurich"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"packageType"</span>: <span className="text-yellow-300">"documents"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"weightCategory"</span>: <span className="text-yellow-300">"Up to 1kg"</span>,</pre>
+              <pre className="text-white">    <span className="text-blue-300">"declaredValueAmount"</span>: <span className="text-purple-400">1000</span></pre>
               <pre className="text-yellow-300">  {'}'}'</pre>
             </div>
           </div>

@@ -93,10 +93,10 @@ export function HowItWorks() {
         <div className="mt-16 text-center">
           <a
             href="/calculation"
-            className="inline-flex items-center gap-2 px-10 py-5 bg-brand-charcoal hover:bg-brand-charcoal/90 text-white font-black text-lg rounded-2xl transition-all active:scale-95 shadow-xl shadow-brand-charcoal/10"
+            className="group inline-flex items-center gap-2 px-10 py-5 bg-brand-charcoal hover:bg-brand-charcoal/90 text-white font-black text-lg rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-charcoal/30 active:translate-y-0 active:scale-[0.92]"
           >
             Try It Now
-            <ArrowRight size={20} strokeWidth={3} />
+            <ArrowRight size={20} strokeWidth={3} className="transition-transform duration-300 group-hover:translate-x-2" />
           </a>
         </div>
       </div>

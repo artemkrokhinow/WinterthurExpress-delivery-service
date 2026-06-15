@@ -48,7 +48,7 @@ export function Hero() {
               <Clock size={24} className="text-brand-charcoal" />
             </div>
             <div>
-              <div className="text-2xl font-black text-brand-charcoal">15 мин</div>
+              <div className="text-2xl font-black text-brand-charcoal">15 min</div>
               <div className="text-sm text-brand-charcoal/70 font-bold">Courier Arrival</div>
             </div>
           </div>
